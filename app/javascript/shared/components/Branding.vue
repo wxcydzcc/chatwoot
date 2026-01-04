@@ -1,56 +1,9 @@
 <script>
-import { useBranding } from 'shared/composables/useBranding';
-
-const {
-  LOGO_THUMBNAIL: logoThumbnail,
-  BRAND_NAME: brandName,
-  WIDGET_BRAND_URL: widgetBrandURL,
-} = window.globalConfig || {};
-
 export default {
-  props: {
-    disableBranding: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup() {
-    const { replaceInstallationName } = useBranding();
-    return {
-      replaceInstallationName,
-    };
-  },
-  data() {
-    return {
-      globalConfig: {
-        brandName,
-        logoThumbnail,
-        widgetBrandURL,
-      },
-    };
-  },
-  computed: {
-    brandRedirectURL() {
-      try {
-        const referrerHost = this.$store.getters['appConfig/getReferrerHost'];
-        const url = new URL(this.globalConfig.widgetBrandURL);
-        if (referrerHost) {
-          url.searchParams.set('utm_source', referrerHost);
-          url.searchParams.set('utm_medium', 'widget');
-        } else {
-          url.searchParams.set('utm_medium', 'survey');
-        }
-        url.searchParams.set('utm_campaign', 'branding');
-        return url.toString();
-      } catch (e) {
-        // Suppressing the error as getter is not defined in some cases
-      }
-      return '';
-    },
-  },
+  // 这里什么都不写，避免报“变量未使用”的错误
 };
 </script>
 
 <template>
-  <div style="display: none;"></div>
+  <div class="hidden" />
 </template>
